@@ -15,12 +15,11 @@ export const products = pgTable("products", {
   title: text("title").notNull(),
   description: text("description").notNull(),
   image_url: text("image_url").notNull(),
-  price: text("price").notNull(),
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   created_at: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-  updated_at: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+  updated_at: timestamp("updated_at", { mode: "date" }).notNull().defaultNow().$onUpdate(() => new Date()),
 });
 
 export const comments = pgTable("comments", {
